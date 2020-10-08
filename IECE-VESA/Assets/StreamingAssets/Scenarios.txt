@@ -1,0 +1,116 @@
+1: Billy keeps bothering Sally by whacking her with a ruler. What do you do?
+A) Confiscate the ruler.
+Pts: 5
+B) Put them both in a time out.
+Pts: 0
+C) Put Billy in a time out.
+Pts: 10
+
+
+
+1A: Billy starts doing the same thing with a pen. What do you do?
+A) Take the pen.
+Pts: 0
+B) Make Billy stand in the hallway.
+Pts: 10
+"Great job!
+C) Warn Billy.
+Pts: 3
+
+
+1B: Sally starts crying, saying she did nothing wrong. What do you do?
+A) Send Sally to the principal's office.
+Pts: 0
+B) Ignore Sally.
+Pts: 1
+C) Apologize and release Sally from time-out
+Pts: 5
+
+
+
+1C: Billy has now started throwing crumpled up pieces of paper at Sally while in time out. What do you do?
+A) Help Billy throw stuff at Sally.
+Pts: 5
+B) Join forces with Sally and throw paper balls back at Billy.
+Pts: 10
+C) Declare war against both Billy and Sally and throw paper balls at them both.
+Pts: F
+"You should never create a world war in class.
+
+
+1AA: Without his pen, Billy is powerless, and collapses on the ground. What do you do?
+A) Do a thing.
+Pts: 0
+B) Do another thing.
+Pts: 10
+C) Do a different thing.
+Pts: 3
+
+
+1AB: Billy starts poking people in the hallway with his pen. What do you do?
+A) Do a thing.
+Pts: 0
+B) Do another thing.
+Pts: 10
+C) Do a different thing.
+Pts: 3
+
+
+1AC: Billy still doesn't stop. What do you do?
+A) Do a thing.
+Pts: 0
+B) Do another thing.
+Pts: 10
+C) Do a different thing.
+Pts: 3
+
+
+1BA: Billy still doesn't stop. What do you do?
+A) Do a thing.
+Pts: 0
+B) Do another thing.
+Pts: 10
+C) Do a different thing.
+Pts: 3
+
+
+
+1BB: The class can't pay attention because of how loud Sally is. What do you do?
+A) Do a thing.
+Pts: 0
+B) Do another thing.
+Pts: 10
+C) Do a different thing.
+Pts: 3
+
+
+1BC: Sally returns to her seat but is still sobbing to herself. What do you do?
+A) Do a thing.
+Pts: 0
+B) Do another thing.
+Pts: 10
+C) Do a different thing.
+Pts: 3
+
+
+1CA: Sally manages to recruit 10 students on her side against you and Billy. What do you do?
+A) Do a thing.
+Pts: 0
+B) Do another thing.
+Pts: 10
+C) Do a different thing.
+Pts: 3
+
+
+1CB: Billy, being ambidextrous, doubles his throw rate by throwing with both hands. What do you do?
+A) Do a thing.
+Pts: 0
+B) Do another thing.
+Pts: 10
+C) Do a different thing.
+Pts: 3
+
+
+
+
+
