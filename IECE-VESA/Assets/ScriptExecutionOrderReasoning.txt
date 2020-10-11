@@ -1,0 +1,1 @@
+CameraPosition must go AFTER TextDocConverter so that the scenarios exist before CameraPosition finds them by name (key)
