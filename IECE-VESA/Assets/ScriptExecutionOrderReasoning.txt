@@ -1,1 +1,2 @@
-CameraPosition must go AFTER TextDocConverter so that the scenarios exist before CameraPosition finds them by name (key)
+>CameraPosition must go AFTER TextDocConverter so that the scenarios exist before CameraPosition finds them by name (key)
+>Game Manager must go AFTER TextDocConverter so that the scenarios exist before Game Manager tries to load the first one

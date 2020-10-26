@@ -15,24 +15,6 @@ public class TextDocConverter : MonoBehaviour
         gameManager = GameManager.Instance;
 
         ReadInTextDocs();
-        //StartCoroutine(DEMOCoroutine());
-
-        //foreach (KeyValuePair<string, string> thisPair in biosDict)
-        //{
-        //    Debug.Log(thisPair.Key + ": " + thisPair.Value);
-        //}
-
-        //foreach (KeyValuePair<string, Scenario> thisScenarioPair in gameManager.scenariosDict)
-        //{
-        //    Debug.Log(thisScenarioPair.Key + ": " + thisScenarioPair.Value.description);
-
-        //    foreach (Option thisOption in thisScenarioPair.Value.optionsList)
-        //    {
-        //        Debug.Log(thisOption.letter + ") " + thisOption.text + " Pts: " + thisOption.pointsWorth);
-        //    }
-        //}
-
-        
     }
 
 
@@ -109,10 +91,12 @@ public class TextDocConverter : MonoBehaviour
                 // If it's a scenario description line...
                 if (line.Contains(":") && Char.IsNumber(line[0]))
                 {
+                    // Take not of some stuff and set a new currentScenario that we can add things to
                     lastLineWasPoints = false;
                     currentOption = null;
                     currentScenario = new Scenario();
 
+                    // Add this to the scenarios dictionary and add the description to that scenario
                     gameManager.scenariosDict.Add(ExtractStringBeforeChar(line, ':'), currentScenario);
                     currentScenario.description = ExtractStringAfterChar(line, ':');
                 }
@@ -123,12 +107,14 @@ public class TextDocConverter : MonoBehaviour
                     lastLineWasPoints = true;
                     string pointsString;
 
+                    // If there's an F on this line, then it's a failure
                     if (line.ToLower().Contains("f"))
                     {
                         currentOption.pointsWorth = -1;
                     }
                     else
                     {
+                        // Get the points for this line
                         if (line.Contains(":"))
                         {
                             pointsString = ExtractStringAfterChar(line, ':');
@@ -138,12 +124,15 @@ public class TextDocConverter : MonoBehaviour
                             pointsString = line;
                         }
                         
+                        // Assign those points to the option we're currently dealing with
                         int points = int.Parse(pointsString);
                         currentOption.pointsWorth = points;
                     }
 
+                    // Now that the option we're working with has some points assigned, add it to the options list for the current scenario
                     currentScenario.AddOption(currentOption);
                 }
+                // If this line is a comment, add this comment to the option
                 else if (lastLineWasPoints && line[0] == '"')
                 {
                     currentOption.comment = ExtractStringAfterChar(line, '"');
@@ -154,6 +143,7 @@ public class TextDocConverter : MonoBehaviour
                     lastLineWasOption = true;
                     lastLineWasPoints = false;
 
+                    // Add this option with its text and letter
                     currentOption = new Option(ExtractStringAfterChar(line, ')'));
                     currentOption.letter = line[0];
                 }
@@ -166,7 +156,12 @@ public class TextDocConverter : MonoBehaviour
 
 
 
-
+    /// <summary>
+    /// A handy method that returns the text in a string after the input character
+    /// </summary>
+    /// <param name="inputString"></param>
+    /// <param name="inputChar"></param>
+    /// <returns></returns>
     private string ExtractStringAfterChar(string inputString, char inputChar)
     {
         int placeToRemoveAt = inputString.IndexOf(inputChar);
@@ -175,6 +170,12 @@ public class TextDocConverter : MonoBehaviour
         return inputString.Remove(0, placeToRemoveAt + 1);
     }
 
+    /// <summary>
+    /// A handy method that returns the text in a string before the input character
+    /// </summary>
+    /// <param name="inputString"></param>
+    /// <param name="inputChar"></param>
+    /// <returns></returns>
     private string ExtractStringBeforeChar(string inputString, char inputChar)
     {
         int placeToRemoveAt = inputString.IndexOf(inputChar);
@@ -183,50 +184,15 @@ public class TextDocConverter : MonoBehaviour
         return inputString.Remove(placeToRemoveAt - 1);
     }
 
-
+    /// <summary>
+    /// A handy method that removes the space at the beginning of a string if it's there
+    /// </summary>
+    /// <param name="inputString"></param>
+    /// <returns></returns>
     private string RemoveFirstSpaceIfThere(string inputString)
     {
         string outputString = inputString;
         if (outputString[0] == ' ') outputString = outputString.Remove(0, 1);
         return outputString;
-    }
-
-
-
-
-
-    IEnumerator DEMOCoroutine()
-    {
-        yield return null;
-
-        //while (true)
-        //{
-        //    foreach (Scenario thisScenario in scenariosDict)
-        //    {
-        //        string scenarioString = thisScenario.description + "\n";
-
-        //        foreach (Option thisOption in thisScenario.optionsList)
-        //        {
-        //            scenarioString += thisOption.text;
-        //            scenarioString += "\n";
-        //        }
-
-        //        scenarioText.text = scenarioString;
-
-
-        //        // BIOS
-        //        string biosString = "";
-
-        //        foreach (string thisName in thisScenario.namesList)
-        //        {
-        //            biosString += thisName + "\n";
-        //            biosString += biosDict[thisName] + "\n\n";
-        //        }
-
-        //        biosText.text = biosString;
-
-        //        yield return new WaitForSeconds(15f);
-        //    }
-        //}
     }
 }

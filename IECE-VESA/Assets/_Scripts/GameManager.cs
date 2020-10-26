@@ -7,26 +7,27 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] Text scenarioText;
-    [SerializeField] GameObject optionObj;
-    [SerializeField] GameObject continueButtonObj;
-    [SerializeField] Text scoreText;
-    [SerializeField] Text commentText;
-    [SerializeField] RawImage blackImage;
+    [SerializeField] Text scenarioText;             // the UI text component where scenario strings are displayed
+    [SerializeField] GameObject optionObj;          // the UI option button's gameobject
+    [SerializeField] GameObject continueButtonObj;  // the UI continue button's gameobject
+    [SerializeField] Text scoreText;                // the UI text component of the current score
+    [SerializeField] Text commentText;              // the UI text component of the comment that pops up when an option is chosen
+    [SerializeField] RawImage blackImage;           // the black image that fades the scene in and out
 
-    [HideInInspector] public Dictionary<string, string> biosDict;
-    [HideInInspector] public Dictionary<string, Scenario> scenariosDict;
+    [HideInInspector] public Dictionary<string, string> biosDict;               // the dictionary of children's bios, where the key is the child's name
+    [HideInInspector] public Dictionary<string, Scenario> scenariosDict;        // the dictionary of aaaall the scenarios, where the key is their label
 
-    Transform cameraTransform;
-    RectTransform buttonGroupRectTransform;
-    ContinueButton continueButton;
-    Scenario scenario;
-    string currentScenarioLabel = "";
-    int currentScore = 0;
-    int currentMaxScore = 0;
+    Transform cameraTransform;                  // the transform component on the camera
+    RectTransform buttonGroupRectTransform;     // the RectTransform component on the group of buttons. We need this to reset the button layout when we load new options on the screen
+    ContinueButton continueButton;              // a reference to the continue button's ContinueButton script
+    string currentScenarioLabel = "";           // keeps track of the current scenario we're on via the scenario labels
+    int currentScore = 0;                       // keeps track of our current score
+    int currentMaxScore = 0;                    // keeps track of the MOST points the player could have if they were the smartest boi
+
 
     void Awake()
     {
+        // Make sure there's only one of these
         if (Instance == null)
         {
             Instance = this;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Initialize the dictionaries
         biosDict = new Dictionary<string, string>();
         scenariosDict = new Dictionary<string, Scenario>();
     }
@@ -43,31 +45,32 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Assign variables
         buttonGroupRectTransform = optionObj.transform.parent.GetComponent<RectTransform>();
         continueButton = ContinueButton.Instance;
         cameraTransform = Camera.main.transform;
 
-        StartCoroutine(DEMOStart());
-    }
-
-
-    IEnumerator DEMOStart()
-    {
-        yield return null;
+        // Load up the first scenario
         LoadNextQuestion("1", true);
     }
 
 
+    // Public method that calls the coroutine
     public void LoadNextQuestion(string inputScenarioChar, bool inputIsFirstQuestion = false)
     {
         StartCoroutine(FadeOutFadeInWithNewScenario(inputScenarioChar, inputIsFirstQuestion));
     }
 
 
-
+    /// <summary>
+    /// Fades out, then loads the new scenario and fades back in
+    /// </summary>
+    /// <param name="inputScenarioChar"></param>
+    /// <param name="inputIsFirstQuestion"></param>
+    /// <returns></returns>
     IEnumerator FadeOutFadeInWithNewScenario(string inputScenarioChar, bool inputIsFirstQuestion = false)
     {
-        // TEXT LOADING STUFF
+        // If it's the first question, reset the score and scenario label
         if (inputIsFirstQuestion)
         {
             currentScenarioLabel = "";
@@ -77,26 +80,30 @@ public class GameManager : MonoBehaviour
         // Clear the previous buttons
         ClearExcessButtons();
 
+        // Add the option letter to our current scenario label
         currentScenarioLabel += inputScenarioChar;
+        Scenario scenario;
 
+        // Load up the scenario with the current label (if there is one)
         if (scenariosDict.TryGetValue(currentScenarioLabel, out scenario))
         {
             float fadeTime = 0.7f;
 
-            //Relocate the camera if we should
+            // Fade out if there's a specific camera position associated with this scenario
             if (scenario.cameraPosition != null)
             {
+                // Start fading out, and wait for this to be done
                 blackImage.gameObject.SetActive(true);
-
                 StartCoroutine(FadeAlpha(1f, fadeTime));
 
                 yield return new WaitForSeconds(fadeTime + 0.5f);
             }
 
-
+            // Set the scenario text box to have this scenario's text
             scenarioText.text = scenario.description;
             optionObj.SetActive(true);
 
+            // For each option that this scenario has, make a button for it
             foreach (Option thisOption in scenario.optionsList)
             {
                 GameObject newOptionObj = Instantiate(optionObj, optionObj.transform.parent);
@@ -105,18 +112,22 @@ public class GameManager : MonoBehaviour
                 newOptionObj.GetComponent<OptionButton>().option = thisOption;
             }
 
+            // Clear the comment, disable our reference option box, and reload the button layout
             commentText.text = "";
             optionObj.SetActive(false);
             LayoutRebuilder.ForceRebuildLayoutImmediate(buttonGroupRectTransform);
 
+            // Each scenario can get a max score of 10 points, so add that to the potential MAX points that the player could get
             currentMaxScore += 10;
 
+            // Move the camera if there's a specific camera position associated with this scenario
             if (scenario.cameraPosition != null)
             {
                 continueButton.gameObject.SetActive(false);
                 cameraTransform.position = scenario.cameraPosition.position;
                 cameraTransform.rotation = scenario.cameraPosition.rotation;
                 
+                // Fade back in
                 StartCoroutine(FadeAlpha(0f, fadeTime));
                 yield return new WaitForSeconds(fadeTime);
                 blackImage.gameObject.SetActive(false);
@@ -125,8 +136,15 @@ public class GameManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Fades in or out the alpha of the black image over a specified amount of time
+    /// </summary>
+    /// <param name="inputEndAlpha"></param>
+    /// <param name="inputFadeTime"></param>
+    /// <returns></returns>
     IEnumerator FadeAlpha(float inputEndAlpha, float inputFadeTime)
     {
+        // Assign where the lerp should start and end, and its speed
         Color startColor = blackImage.color;
         Color endColor = blackImage.color;
         endColor.a = inputEndAlpha;
@@ -144,7 +162,9 @@ public class GameManager : MonoBehaviour
     }
     
 
-
+    /// <summary>
+    /// Deletes all the visible buttons from the scene
+    /// </summary>
     public void ClearExcessButtons()
     {
         if (buttonGroupRectTransform.childCount > 1)
@@ -158,6 +178,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // Adds points and updates the point UI display
     public void AddPoints(int inputPoints)
     {
         currentScore += inputPoints;
@@ -166,6 +187,10 @@ public class GameManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Called when the user clicks an option
+    /// </summary>
+    /// <param name="inputOption"></param>
     public void SubmitOption(Option inputOption)
     {
         // If it's an option that makes you fail, fail the user
@@ -184,6 +209,9 @@ public class GameManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Fails the user
+    /// </summary>
     public void FailThem()
     {
         ClearExcessButtons();
@@ -193,6 +221,10 @@ public class GameManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Makes the UI display whatever string is put in as a comment
+    /// </summary>
+    /// <param name="inputComment"></param>
     public void DisplayComment(string inputComment)
     {
         commentText.text = inputComment;
@@ -202,13 +234,15 @@ public class GameManager : MonoBehaviour
 
 
 
-
+/// <summary>
+/// A scenario is a class that stores aaall the relevant information to a scenario, including what options are available to it
+/// </summary>
 public class Scenario
 {
-    public List<string> namesList;
-    public List<Option> optionsList;
-    public string description;
-    public Transform cameraPosition;              // This is set to a ludicrously high value by default so we know if it's not explicitly assigned to a real camera position
+    public List<string> namesList;          // The names of all the characters associated with this scenario
+    public List<Option> optionsList;        // All the Options that this scenario has
+    public string description;              // The actual text for the scenario
+    public Transform cameraPosition;        // Gets assigned by a Camera Position object
 
     public Scenario()
     {
@@ -235,12 +269,15 @@ public class Scenario
 }
 
 
+/// <summary>
+/// Stores info for an option, including the letter associated with it (A, B, C, D, etc), the text, the comment (for when you select this option), and how many points it's worth
+/// </summary>
 public class Option
 {
-    public char letter = 'Z';
-    public string text;
-    public int pointsWorth;
-    public string comment = "";
+    public char letter = 'Z';       // The letter associated
+    public string text;             // The actual line of text for this option
+    public int pointsWorth;         // If this is a -1, it means that picking this option is an instant FAIL
+    public string comment = "";     // The comment that gets displayed if the player picks this answer
 
     public Option(string inputText, int inputPointsWorth = 0)
     {

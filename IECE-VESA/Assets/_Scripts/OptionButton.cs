@@ -7,7 +7,9 @@ public class OptionButton : MonoBehaviour
     public Option option;
     
 
-
+    /// <summary>
+    /// Called when this button is clicked
+    /// </summary>
     public void OnClick()
     {
         GameManager gameManager = GameManager.Instance;

@@ -62,8 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ContinueButton.cs" />
     <Compile Include="Assets\_Scripts\CameraPosition.cs" />
+    <Compile Include="Assets\_Scripts\ContinueButton.cs" />
     <Compile Include="Assets\_Scripts\GameManager.cs" />
     <Compile Include="Assets\_Scripts\OptionButton.cs" />
     <Compile Include="Assets\_Scripts\TextDocConverter.cs" />
@@ -632,7 +632,12 @@
       <HintPath>C:/Users/Dylan/Documents/IECE-VESA_Repo/IECE-VESA/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{6680526C-A1FD-9700-CE7C-CA3305FE3E53}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
