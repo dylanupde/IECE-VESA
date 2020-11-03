@@ -8,6 +8,7 @@ using UnityEngine;
 public class CameraPosition : MonoBehaviour
 {
     [SerializeField] string scenarioAssociated;     // the scenario label that this camera angle is associated with
+    [SerializeField] float transitionTime = 0.7f;
     [SerializeField] bool moveCamera = false;       // set this to true if we're moving the camera as a transition, not fading
 
     GameManager gameManager;
@@ -22,7 +23,9 @@ public class CameraPosition : MonoBehaviour
         // Set the scenario with the scenarioAssociated label to have this camera position associated with it
         if (gameManager.scenariosDict.TryGetValue(scenarioAssociated, out scenario))
         {
-            scenario.cameraPosition = transform;
+            scenario.cameraPositionTransform = transform;
+            scenario.moveCamera = moveCamera;
+            scenario.transitionTime = transitionTime;
         }
         // If a scenario doesn't exist via the given label, call the designer a dummy
         else

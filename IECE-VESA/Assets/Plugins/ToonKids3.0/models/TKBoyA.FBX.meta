@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 1a995c0d6710dda409fb0490d929f127
-timeCreated: 1552333700
-licenseType: Store
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: Glasses
     100002: HEAD
@@ -227,6 +225,7 @@ ModelImporter:
     13700046: TKFeetAS
     13700048: HatA
     13700050: HEADsimple
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -276,6 +275,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: TKBoyA01
+    second: {fileID: 2100000, guid: 977c9d156461cfb4ba4eb9ac585fb83a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: TKHairF01
     second: {fileID: 2100000, guid: 491d8224afb7f7547995a69e41c46f22, type: 2}
   - first:
@@ -302,7 +306,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: feetB
-    second: {fileID: 2100000, guid: 0f66bae93ec8b40469b4eb5a58f87e5d, type: 2}
+    second: {fileID: 2100000, guid: 629dfc3c1769e1d43a0383077ab52b0a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -322,7 +326,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: legs
-    second: {fileID: 2100000, guid: 0c6e7e0b28343154cb0d95255b8c12d7, type: 2}
+    second: {fileID: 2100000, guid: a3eebf9b617efb1429298d010fc8f5b1, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -341,6 +345,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -355,6 +360,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -365,16 +371,23 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 0
   copyAvatar: 1
   humanDescription:
@@ -1090,7 +1103,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 1
     hasExtraRoot: 1
     skeletonHasParents: 1

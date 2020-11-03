@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text scoreText;                // the UI text component of the current score
     [SerializeField] Text commentText;              // the UI text component of the comment that pops up when an option is chosen
     [SerializeField] RawImage blackImage;           // the black image that fades the scene in and out
+    [SerializeField] AnimationCurve cameraMoveAnimCurve;
 
     [HideInInspector] public Dictionary<string, string> biosDict;               // the dictionary of children's bios, where the key is the child's name
     [HideInInspector] public Dictionary<string, Scenario> scenariosDict;        // the dictionary of aaaall the scenarios, where the key is their label
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
     // Public method that calls the coroutine
     public void LoadNextQuestion(string inputScenarioChar, bool inputIsFirstQuestion = false)
     {
-        StartCoroutine(FadeOutFadeInWithNewScenario(inputScenarioChar, inputIsFirstQuestion));
+        StartCoroutine(TransitionToNewScenario(inputScenarioChar, inputIsFirstQuestion));
     }
 
 
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour
     /// <param name="inputScenarioChar"></param>
     /// <param name="inputIsFirstQuestion"></param>
     /// <returns></returns>
-    IEnumerator FadeOutFadeInWithNewScenario(string inputScenarioChar, bool inputIsFirstQuestion = false)
+    IEnumerator TransitionToNewScenario(string inputScenarioChar, bool inputIsFirstQuestion = false)
     {
         // If it's the first question, reset the score and scenario label
         if (inputIsFirstQuestion)
@@ -87,16 +88,24 @@ public class GameManager : MonoBehaviour
         // Load up the scenario with the current label (if there is one)
         if (scenariosDict.TryGetValue(currentScenarioLabel, out scenario))
         {
-            float fadeTime = 0.7f;
+            float transitionTimeCurrent = scenario.transitionTime;
 
             // Fade out if there's a specific camera position associated with this scenario
-            if (scenario.cameraPosition != null)
+            if (scenario.cameraPositionTransform != null)
             {
-                // Start fading out, and wait for this to be done
-                blackImage.gameObject.SetActive(true);
-                StartCoroutine(FadeAlpha(1f, fadeTime));
+                if (scenario.moveCamera)
+                {
+                    StartCoroutine(MoveCamera(scenario.cameraPositionTransform, transitionTimeCurrent));
+                    yield return new WaitForSeconds(transitionTimeCurrent);
+                }
+                else
+                {
+                    // Start fading out, and wait for this to be done
+                    blackImage.gameObject.SetActive(true);
+                    StartCoroutine(FadeAlpha(1f, transitionTimeCurrent));
 
-                yield return new WaitForSeconds(fadeTime + 0.5f);
+                    yield return new WaitForSeconds(transitionTimeCurrent + 0.5f);
+                }
             }
 
             // Set the scenario text box to have this scenario's text
@@ -121,15 +130,15 @@ public class GameManager : MonoBehaviour
             currentMaxScore += 10;
 
             // Move the camera if there's a specific camera position associated with this scenario
-            if (scenario.cameraPosition != null)
+            if (scenario.cameraPositionTransform != null)
             {
                 continueButton.gameObject.SetActive(false);
-                cameraTransform.position = scenario.cameraPosition.position;
-                cameraTransform.rotation = scenario.cameraPosition.rotation;
+                cameraTransform.position = scenario.cameraPositionTransform.position;
+                cameraTransform.rotation = scenario.cameraPositionTransform.rotation;
                 
                 // Fade back in
-                StartCoroutine(FadeAlpha(0f, fadeTime));
-                yield return new WaitForSeconds(fadeTime);
+                StartCoroutine(FadeAlpha(0f, transitionTimeCurrent));
+                yield return new WaitForSeconds(transitionTimeCurrent);
                 blackImage.gameObject.SetActive(false);
             }
         }
@@ -159,6 +168,33 @@ public class GameManager : MonoBehaviour
         }
 
         blackImage.color = endColor;
+    }
+
+
+    /// <summary>
+    /// Lerps the camera to the end transform's position/rotation over an input period of time
+    /// </summary>
+    /// <param name="inputEndTransform"></param>
+    /// <param name="inputTransitionTime"></param>
+    /// <returns></returns>
+    IEnumerator MoveCamera(Transform inputEndTransform, float inputTransitionTime)
+    {
+        Vector3 startPos = cameraTransform.position;
+        Quaternion startRot = cameraTransform.rotation;
+        float lerpSpeed = 1f / inputTransitionTime;
+        float t = 0f;
+
+        while (t <= 1f)
+        {
+            t += lerpSpeed * Time.deltaTime;
+            cameraTransform.position = Vector3.Lerp(startPos, inputEndTransform.position, cameraMoveAnimCurve.Evaluate(t));
+            cameraTransform.rotation = Quaternion.Slerp(startRot, inputEndTransform.rotation, cameraMoveAnimCurve.Evaluate(t));
+
+            yield return null;
+        }
+
+        cameraTransform.position = inputEndTransform.position;
+        cameraTransform.rotation = inputEndTransform.rotation;
     }
     
 
@@ -239,16 +275,18 @@ public class GameManager : MonoBehaviour
 /// </summary>
 public class Scenario
 {
-    public List<string> namesList;          // The names of all the characters associated with this scenario
-    public List<Option> optionsList;        // All the Options that this scenario has
-    public string description;              // The actual text for the scenario
-    public Transform cameraPosition;        // Gets assigned by a Camera Position object
+    public List<string> namesList;          // the names of all the characters associated with this scenario
+    public List<Option> optionsList;        // all the Options that this scenario has
+    public string description;              // the actual text for the scenario
+    public Transform cameraPositionTransform;        // gets assigned by a Camera Position object
+    public float transitionTime;            // how long it should take for the camera to transition to this scenario (whether that be fade or move)
+    public bool moveCamera;                 // if this is false, we will fade out the camera and fade it in during transition to this scenario. If true, we'll just move the camera there
 
     public Scenario()
     {
         namesList = new List<string>();
         optionsList = new List<Option>();
-        cameraPosition = null;
+        cameraPositionTransform = null;
     }
 
     public void AddName(string inputName)
