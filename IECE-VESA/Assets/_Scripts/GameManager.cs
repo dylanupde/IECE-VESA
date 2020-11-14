@@ -10,13 +10,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text scenarioText;             // the UI text component where scenario strings are displayed
     [SerializeField] GameObject optionObj;          // the UI option button's gameobject
     [SerializeField] GameObject continueButtonObj;  // the UI continue button's gameobject
+    [SerializeField] Text bioText;             // the UI bio text's gameobject
     [SerializeField] Text scoreText;                // the UI text component of the current score
     [SerializeField] Text commentText;              // the UI text component of the comment that pops up when an option is chosen
     [SerializeField] RawImage blackImage;           // the black image that fades the scene in and out
     [SerializeField] AnimationCurve cameraMoveAnimCurve;
 
-    [HideInInspector] public Dictionary<string, string> biosDict;               // the dictionary of children's bios, where the key is the child's name
+    [HideInInspector] public Dictionary<string, Bio> biosDict;               // the dictionary of children's bios, where the key is the child's name
     [HideInInspector] public Dictionary<string, Scenario> scenariosDict;        // the dictionary of aaaall the scenarios, where the key is their label
+    [HideInInspector] public List<Scenario> scenariosLinearList;
 
     Transform cameraTransform;                  // the transform component on the camera
     RectTransform buttonGroupRectTransform;     // the RectTransform component on the group of buttons. We need this to reset the button layout when we load new options on the screen
@@ -39,8 +41,9 @@ public class GameManager : MonoBehaviour
         }
 
         // Initialize the dictionaries
-        biosDict = new Dictionary<string, string>();
+        biosDict = new Dictionary<string, Bio>();
         scenariosDict = new Dictionary<string, Scenario>();
+        scenariosLinearList = new List<Scenario>();
     }
 
     // Start is called before the first frame update
@@ -50,6 +53,29 @@ public class GameManager : MonoBehaviour
         buttonGroupRectTransform = optionObj.transform.parent.GetComponent<RectTransform>();
         continueButton = ContinueButton.Instance;
         cameraTransform = Camera.main.transform;
+
+        bioText.gameObject.SetActive(false);
+
+
+        //foreach (KeyValuePair<string, Bio> thisPair in biosDict)
+        //{
+        //    Debug.Log(thisPair.Key);
+        //    Debug.Log(thisPair.Value.stats);
+        //    Debug.Log(thisPair.Value.description);
+        //}
+
+        foreach (Scenario thisScenario in scenariosLinearList)
+        {
+            Debug.Log(thisScenario.group);
+            Debug.Log(thisScenario.question);
+
+            foreach (Option thisOption in thisScenario.optionsList)
+            {
+                Debug.Log(thisOption.letter + ": " + thisOption.text);
+                Debug.Log(thisOption.comment + " Pts: " + thisOption.pointsWorth);
+            }
+        }
+
 
         // Load up the first scenario
         LoadNextQuestion("1", true);
@@ -109,7 +135,7 @@ public class GameManager : MonoBehaviour
             }
 
             // Set the scenario text box to have this scenario's text
-            scenarioText.text = scenario.description;
+            scenarioText.text = scenario.question;
             optionObj.SetActive(true);
 
             // For each option that this scenario has, make a button for it
@@ -265,7 +291,33 @@ public class GameManager : MonoBehaviour
     {
         commentText.text = inputComment;
     }
+
+
+    public void DisplayBio(string inputName)
+    {
+        bioText.gameObject.SetActive(true);
+
+        Bio bio;
+
+        if (biosDict.TryGetValue(inputName, out bio))
+        {
+            bioText.text = inputName + "\n" + bio.stats + "\n" + bio.description;
+        }
+        else
+        {
+            Debug.LogError("OH NO! There is no child by this name! Make sure each gameobject with the Child script has the child's name as the gameobject name.");
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -277,9 +329,10 @@ public class Scenario
 {
     public List<string> namesList;          // the names of all the characters associated with this scenario
     public List<Option> optionsList;        // all the Options that this scenario has
-    public string description;              // the actual text for the scenario
+    public string question;              // the actual text for the scenario
     public Transform cameraPositionTransform;        // gets assigned by a Camera Position object
     public float transitionTime;            // how long it should take for the camera to transition to this scenario (whether that be fade or move)
+    public int group;                       // this applies to linear scenarios only. Each scenario belongs to a specific whole group of scenarios, identified by this number
     public bool moveCamera;                 // if this is false, we will fade out the camera and fade it in during transition to this scenario. If true, we'll just move the camera there
 
     public Scenario()
@@ -307,6 +360,7 @@ public class Scenario
 }
 
 
+
 /// <summary>
 /// Stores info for an option, including the letter associated with it (A, B, C, D, etc), the text, the comment (for when you select this option), and how many points it's worth
 /// </summary>
@@ -322,4 +376,12 @@ public class Option
         text = inputText;
         pointsWorth = inputPointsWorth;
     }
+}
+
+
+
+public class Bio
+{
+    public string stats;
+    public string description;
 }

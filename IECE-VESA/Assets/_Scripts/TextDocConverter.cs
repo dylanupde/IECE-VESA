@@ -25,8 +25,11 @@ public class TextDocConverter : MonoBehaviour
         // ========================================
 
         bool lastLineSaidName = false;
+        bool lastLineSaidStats = false;
         string line;
-        string name = "";
+        string kidName = "";
+        Bio currentBio = null;
+
 
         StreamReader biosStreamReader = File.OpenText(Application.streamingAssetsPath + "/Bios.txt");
 
@@ -38,31 +41,37 @@ public class TextDocConverter : MonoBehaviour
             // If this line isn't blank...
             if (line != null && line.Length > 0 && line[0] != '@')
             {
-                // If the last line didn't start with "Name"...
-                if (!lastLineSaidName)
+                // If the last line started with "Name" (meaning this is the stats)...
+                if (lastLineSaidName)
+                {
+                    // Flag that the last line wasn't a name and add the name and line to our bios dict
+                    lastLineSaidName = false;
+                    lastLineSaidStats = true;
+                    currentBio.stats = line;
+                }
+                // Otherwise, if the last line was our stats (meaning this is the description)...
+                else if (lastLineSaidStats)
+                {
+                    lastLineSaidStats = false;
+                    lastLineSaidName = false;
+                    currentBio.description = line;
+                    gameManager.biosDict.Add(kidName, currentBio);
+                    currentBio = null;
+
+                    // This line isn't technically necessary, but may help us with debugging if something messes up
+                    kidName = "-EMPTY-";
+                }
+                // Otherwise, this is the name for the kid
+                else
                 {
                     // If this line DOES start with name, then record the name and flag that the next line will be the bio
                     if (line.Substring(0, 4).ToLower() == "name")
                     {
                         lastLineSaidName = true;
 
-                        name = ExtractStringAfterChar(line, ':');
+                        currentBio = new Bio();
+                        kidName = ExtractStringAfterChar(line, ':');
                     }
-                    // Otherwise, not that this line isn't a name line
-                    else
-                    {
-                        lastLineSaidName = false;
-                    }
-                }
-                // Otherwise, this is the description for the kid
-                else
-                {
-                    // Flag that the last line wasn't a name and add the name and line to our bios dict
-                    lastLineSaidName = false;
-                    gameManager.biosDict.Add(name, line);
-
-                    // This line isn't technically necessary, but may help us with debugging if something messes up
-                    name = "-EMPTY-";
                 }
             }
         // Keep doing this as long as there's still lines to be read
@@ -98,7 +107,7 @@ public class TextDocConverter : MonoBehaviour
 
                     // Add this to the scenarios dictionary and add the description to that scenario
                     gameManager.scenariosDict.Add(ExtractStringBeforeChar(line, ':'), currentScenario);
-                    currentScenario.description = ExtractStringAfterChar(line, ':');
+                    currentScenario.question = ExtractStringAfterChar(line, ':');
                 }
                 // If it's the points for an option...
                 else if (lastLineWasOption)
@@ -151,6 +160,73 @@ public class TextDocConverter : MonoBehaviour
         } while (line != null);
 
         scenariosStreamReader.Close();
+
+
+
+        // =======================================
+        // ============== SCENARIOS ==============
+        // =======================================
+
+        StreamReader scenariosLinearStreamReader = File.OpenText(Application.streamingAssetsPath + "/ScenariosLinear.txt");
+        currentScenario = null;
+        currentOption = null;
+        int currentGroup = 0;
+        string currentQuestion = "";
+        bool lastLineWasQuestion = false;
+        
+        do
+        {
+            line = scenariosLinearStreamReader.ReadLine();
+
+            // If this line isn't blank...
+            if (line != null && line.Length > 0 && line[0] != '@')
+            {
+                // If it's a group line...
+                if (line.Contains(":") && ExtractStringBeforeChar(line, ':').ToLower() == "group")
+                {
+                    lastLineWasQuestion = false;
+
+                    // Set the currentGroup we're in
+                    string groupString = ExtractStringAfterChar(line, ':');
+                    currentGroup = int.Parse(groupString);
+                }
+                // If it's a question...
+                else if (line.Contains(":") && ExtractStringBeforeChar(line, ':').ToLower() == "question")
+                {
+                    lastLineWasQuestion = true;
+                    currentQuestion = line;
+
+                    currentScenario = new Scenario();
+                    gameManager.scenariosLinearList.Add(currentScenario);
+                    currentScenario.question = currentQuestion;
+                    currentScenario.group = currentGroup;
+                }
+                // If it's an option line...
+                else if (line.Length > 1 && line[1] == ':' && Char.IsLetter(line[0]))
+                {
+                    // Add this option with its text and letter
+                    currentOption = new Option(ExtractStringAfterChar(line, ':'));
+                    currentOption.letter = line[0];
+                    currentScenario.AddOption(currentOption);
+                }
+                // If this line is a comment, add this comment to the option
+                else if (line.Contains(":") && ExtractStringBeforeChar(line, ':').ToLower() == "comment")
+                {
+                    currentOption.comment = ExtractStringAfterChar(line, '"');
+                }
+                else if (Char.IsNumber(line[0]))
+                {
+                    currentOption.pointsWorth = int.Parse(line);
+                }
+                else if (lastLineWasQuestion)
+                {
+                    currentQuestion += line;
+                    currentScenario.question = currentQuestion;
+                }
+            }
+        } while (line != null);
+
+        scenariosLinearStreamReader.Close();
     }
 
 
