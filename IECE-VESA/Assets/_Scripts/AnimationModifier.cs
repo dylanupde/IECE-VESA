@@ -16,7 +16,7 @@ public class AnimationModifier : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         anim.speed = 0f;
-        anim.Play("TK_sitidle1", 0, startFrame);
+        anim.Play("TK_idle1", 0, startFrame);
         anim.speed = animationSpeed;
     }
 }

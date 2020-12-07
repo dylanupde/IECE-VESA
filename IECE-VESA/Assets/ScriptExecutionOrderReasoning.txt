@@ -1,2 +1,3 @@
 >CameraPosition must go AFTER TextDocConverter so that the scenarios exist before CameraPosition finds them by name (key)
->Game Manager must go AFTER TextDocConverter so that the scenarios exist before Game Manager tries to load the first one
+>Game Manager must go AFTER TextDocConverter so that the scenarios exist before GameManager tries to load the first one
+>ImageAssigner must go AFTER TextDocConverter so that the bios exist before ImageAssigner tries to assign the images to their bios

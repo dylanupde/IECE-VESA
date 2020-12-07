@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Sends the Child a message to turn on or off the outliner when this object is mouse-overed/not mouse-overed/clicked 
+/// </summary>
 public class ClickableObject : MonoBehaviour
 {
     GameManager gameManager;
-    Child child;
+    Child myChild;
+
+    bool mouseIsOver;
 
     // Start is called before the first frame update
     void Start()
@@ -15,9 +20,9 @@ public class ClickableObject : MonoBehaviour
 
         while (currentTransform.parent != null)
         {
-            child = currentTransform.GetComponent<Child>();
+            myChild = currentTransform.GetComponent<Child>();
 
-            if (child) break;
+            if (myChild) break;
 
             currentTransform = currentTransform.parent;
         }
@@ -26,25 +31,25 @@ public class ClickableObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        myChild.ShowOutline(mouseIsOver);
     }
     
 
 
     void OnMouseEnter()
     {
-        child.ShowOutline(true);
+        mouseIsOver = true;
     }
 
 
     void OnMouseExit()
     {
-        child.ShowOutline(false);
+        mouseIsOver = false;
     }
 
 
     private void OnMouseDown()
     {
-        gameManager.DisplayBio(child.gameObject.name);
+        if (myChild.outlinerIsOn) gameManager.DisplayBio(myChild.gameObject.name);
     }
 }

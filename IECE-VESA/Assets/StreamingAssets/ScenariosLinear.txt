@@ -1,13 +1,13 @@
 @ Comment
 
-Group: 1
+Scenario: 1
 
-Question: Your mentor teacher presents you with the following information based on a recent assessment. It identifies that the following children have not mastered key letter sounds and CVC correspondence.
-Letter Sound Not Mastered \t Student Name
-Long e \t Hannah, Marquis, Simon, Clara 
-R \t Emerson, Sofie, Nathan, and Liam
-Short e \t Gia, Fatima, Marquis, Brooks, Shreya
-CVC correspondence \t  Sara, Fatima, Donna, Gia 
+1: Your mentor teacher presents you with the following information based on a recent assessment. It identifies that the following children have not mastered key letter sounds and CVC correspondence.
+Letter Sound Not Mastered:
+Long e - Hannah, Marquis, Simon, Clara
+R - Emerson, Sofie, Nathan, and Liam
+Short e - Gia, Fatima, Marquis, Brooks, Shreya
+CVC correspondence - Sara, Fatima, Donna, Gia
 Which of the following is the best teaching strategy for the teacher to guide the students who are struggling with their short e sound to continue developing their reading and literacy skills?
 A: A whole-class activity where the teacher reads a story aloud to the group. 
 Comment: This is not the best choice because it doesn’t allow for students with varying abilities to be focusing on the different levels they need. It encourages their listening skills but does not help them enhance specific reading objectives.
@@ -21,7 +21,7 @@ Comment: This is an okay choice because it allows for some individual or partner
 
 
 
-Question: You walk over to the bookshelf in your mentor teacher’s classroom to determine the book that you are going to read with your students. You pick up two books that you believe might be a possibility. The first book is “Rosie’s Walk” by Pat Hutchings. This book follows Rosie as she is chased by the fox around the farm and has directionality allowing the children to use hand motions and movements while reading. The second book is “Ten Pets the Sound of Short E” by Cynthia Amoroso.  This book helps students learn their CVC words and uses repetition to highlight how to use the short “e” sound. Knowing your students and their needs, what book do you choose?
+2: You walk over to the bookshelf in your mentor teacher’s classroom to determine the book that you are going to read with your students. You pick up two books that you believe might be a possibility. The first book is “Rosie’s Walk” by Pat Hutchings. This book follows Rosie as she is chased by the fox around the farm and has directionality allowing the children to use hand motions and movements while reading. The second book is “Ten Pets the Sound of Short E” by Cynthia Amoroso.  This book helps students learn their CVC words and uses repetition to highlight how to use the short “e” sound. Knowing your students and their needs, what book do you choose?
 A: Choose to use “Rosie’s walk” because it will keep the student’s interest and they will be able to be active participants in the reading. It also has a clear story line that is easier for students to follow and allows them to make predictions. This story has the potential for follow up activities and the use of props to make the reading more engaging.
 Comment: This is not the best choice. Rosie’s walk may be a fun and exciting book that will keep the student’s interest, however it does not support the student's current academic needs and it is not appropriate to use in the setting of a small group guided reading lesson. Maybe try reading “Ten Pets the Sound of a Short E” with your reading group and do a full class activity with Rosie’s walk at a later time.
 0
@@ -35,7 +35,7 @@ Comment: This is the best choice. “Ten Pets the sound of the Short E” is the
 
 
 
-Question: You decided your final assessment for your students was to gauge their understanding of their ability to read words with a short e sound. What is the best SMART objective to support your final assessment of the students? 
+3: You decided your final assessment for your students was to gauge their understanding of their ability to read words with a short e sound. What is the best SMART objective to support your final assessment of the students? 
 A: Students will practice comprehension and telling a story based on wordles pictures.
 Comment: This is not the best choice because while this is an appropriate objective for a kindergarten student, it does not apply to the book that you are reading. “Ten Pets the Sound of a Short E” does not have a story for the children to follow and is rather an opportunity to practice words with a short e sound in the middle. 
 0
@@ -50,7 +50,7 @@ Comment: This is the best choice because it aligns with what you want to access 
 
 
 
-Question: How do you feel about the seating arrangement that the children moved to on their own? Knowing your students behavioral needs, would you want to change their seating arrangement? 
+4: How do you feel about the seating arrangement that the children moved to on their own? Knowing your students behavioral needs, would you want to change their seating arrangement? 
 A: I am fine with how the students are seated.  They can seat themselves and I feel I will still be able to conduct my lesson with them seated in their current location. 
 Comment: This is not the best choice. Some of your students have additional needs throughout the reading group process. Gia, who has an IEP, would be the most successful if she was seated next to the teacher as she may need the most assistance reading the book and staying on task. Potentially use a name tag system to guide the students to their seats before the lesson begins. 
 0
@@ -64,7 +64,7 @@ Comment: This is an okay choice but not the best. Having Gia sit next to Fatima 
 
 
 
-Question:  You know Gia in your group has an IEP for autism, and she needs certain accommodations to be successful in the classroom. What learning tools or additional accommodations should you provide to Gia to help her be successful in this lesson?
+5:  You know Gia in your group has an IEP for autism, and she needs certain accommodations to be successful in the classroom. What learning tools or additional accommodations should you provide to Gia to help her be successful in this lesson?
 A: Gia should be provided with stuffed toys to practice reading to, a fake finger to place over her real finger to help her follow along in the book and stay on task, an exercise ball to sit on, and an audiobook that reads the story out loud to her. 
 Comment: This is an okay choice as these accommodations might help Gia be successful. However, these are not the supports that are listed in her IEP and do not relate to her identified challenges. 
 5
@@ -78,7 +78,7 @@ Comment: This is the best choice because it provides Gia with the accommodations
 
 
 
-Question: It is time to begin your lesson. How would you introduce the book and what information would you review prior to reading?
+6: It is time to begin your lesson. How would you introduce the book and what information would you review prior to reading?
 A: Each child should be allowed to read their book on their own and we will discuss it when they are done. 
 Comment: This is not a good choice. Your students are young and need set direction on where to go next. Some students will not know what to do, and they will not understand the vocabulary words and objectives they are trying to learn. 
 0
@@ -92,7 +92,7 @@ Comment: This is an okay choice but not the best. Your students need to be intro
 
 
 
-Question: Sight words are important to teach your students because they do not follow all of the roles of spelling. How do you prepare your students for the sight words in this lesson before you begin reading? 
+7: Sight words are important to teach your students because they do not follow all of the roles of spelling. How do you prepare your students for the sight words in this lesson before you begin reading? 
 A: Have them sit down and go through the picture walk on their own, allow them to figure out the sight words and any other difficult concepts on their own. 
 Comment: This is the worst choice because it never introduces the sight words. Students are not  given the chance to see if they know them and are expected to teach themselves.. Students need to be introduced to sight words and other challenging concepts that might arise so they are prepared for the reading. 
 0
@@ -106,8 +106,22 @@ Comment: This is an okay choice because you review some of the sight words, prep
 
 
 
+8: You hand each student their own individual book for the small reading group, what do you do next to guide your students?  
+A: Ask them questions to engage them in the story and guide their predictions, such as - “What do you think this book is about? What do you see? Have you seen any of these animals in your life? Do you have any of these pets at home? Do you see any sight words on this page? Are there any words that you don’t know or that you know very well already?”
+Comment: This is the best choice because it engages all of the students, it points their attention towards the pictures they are seeing, it guides their picture walk and it draws in topics they already may know about or be excited to talk about their own pets at home. 
+10
+B: Ask them about the type of story they are reading such as  - “Is this book Fiction or nonfiction? Who is the main character of the story? What is the lesson of this story? What is the general story line” 
+Comment: This is an okay choice because the questions are focusing on all of the students. However  these are too hard for kindergarteners and these types of questions don’t relate to the story that you will be reading with the students.
+5
+C: Ask them questions about what they are seeing focusing only on the students who are talking a lot and avoid asking the entire group all of the questions.
+Comment: This is the worst choice because students are left out of the learning. It does not allow those quieter or lower level students to be involved in the conversation which may lead them to zoning out or getting frustrated.
+0
 
-Question:  What types of questions do you ask students during their picture walk? 
+
+
+
+
+9:  What types of questions do you ask students during their picture walk? 
 A: Ask them questions to engage them in the story and guide their predictions, such as - “What do you think this book is about? What do you see? Have you seen any of these animals in your life? Do you have any of these pets at home? Do you see any sight words on this page? Are there any words that you don’t know or that you know very well already?”
 Comment: This is the best choice because it engages all of the students, it points their attention towards the pictures they are seeing, it guides their picture walk and it draws in topics they already may know about or be excited to talk about their own pets at home. 
 10
@@ -121,7 +135,7 @@ Comment: This is the worst choice because students are left out of the learning.
 
 
 
-Question: Brooks lost his hamster just a few days ago and shuts down when you ask about family pets. How do you best respond to this situation?
+10: Brooks lost his hamster just a few days ago and shuts down when you ask about family pets. How do you best respond to this situation?
 A: Pretend not to notice Brooks and move on with the lesson hoping he will forget about his hamster and regain his focus on his own. If in a few minutes he does not stop crying try another strategy. 
 Comment: This is the worst choice. Brooks is not being provided the change to acknowledge his feelings and understand what his body is doing. Moving on without saying anything teaches Brooks that he needs to suppress his emotions. 
 0
@@ -134,7 +148,7 @@ Comment: This is an okay choice. You acknowledged Brooks’ emotions however, he
 
 
 
-Question: Shreya was talking about her new puppy and got really excited causing her to forget her inside voice.  This caused an increase in sensory information causing Gia to cover her ears and start shaking in her seat. How would you best handle this situation and to remind Shreya about her inside voice and help Gia regain her focus. 
+11: Shreya was talking about her new puppy and got really excited causing her to forget her inside voice.  This caused an increase in sensory information causing Gia to cover her ears and start shaking in her seat. How would you best handle this situation and to remind Shreya about her inside voice and help Gia regain her focus. 
 A: Calmly approach Gia and support her as she calms down as you remind Shreya quietly to lower her voice to an inside voice.  You may have to softly touch Gia to let her know that you are helping her as you gently guide Gia to do what she needs to do.  Once everyone is calm, remind them of the lesson’s target and begin the lesson again.
 Comment:  This is the best choice due to both of the girls' needs being met, the group continues their lesson with a reminder of what they were working toward before their attention was strayed from the target. 
 10
@@ -148,7 +162,7 @@ Comment: This choice will work to settle the group, but this age will forget the
 
 
 
-Question: How are you going to cue students to prepare to read? 
+12: How are you going to cue students to prepare to read? 
 A: Instruct students to begin reading on their own in a whisper voice by saying, “Ready Go”
 Comment: This is an okay choice because it encourages the students to read on their own. However,  it gives them no instruction, support or guidance for their reading. Students who may struggle more with their reading or staying on task may struggle or lose complete focus. 
 5
@@ -162,7 +176,7 @@ Comment: This is not a good choice because reading out loud to them is more appr
 
 
 
-Question: While going around the table and the children take turns reading, you notice that Brooks is continually talking to Shreya and not doing their work. What do you do?
+13: While going around the table and the children take turns reading, you notice that Brooks is continually talking to Shreya and not doing their work. What do you do?
 A: Raise your voice and immediately tell Shreya and Brooks to stop talking and focus on their book.
 Comment: This is not a good choice because this harsh tone would scare the students and they are not in any physical danger. You are also making assumptions that they are talking about something completely unrelated to the book when they could be discussing their predictions or talking about the pets they have at home. 
 0
@@ -175,7 +189,7 @@ Comment: This is not a good choice. You did not take the time to determine if wh
 
 
 
-Question: Marquis is wiggling in his seat, constantly standing up and down, and grabbing and playing with the book. How can you help him focus?
+14: Marquis is wiggling in his seat, constantly standing up and down, and grabbing and playing with the book. How can you help him focus?
 A: Help Marquis find movement options that will help him learn. Give him either a band on the bottom of his chair, a weighted toy to sit in his lap, a ball to sit on or assign him to help you prep for the next stage of the activity. 
 Comment: This is the best choice because it provides Marquis with productive options for movement helping him to regain his focus. Additionally giving wiggly students a job to do helps them feel important and focus on a set task. 
 10
@@ -189,7 +203,7 @@ Comment: This is not a good choice. Using a demanding or stern voice is not appr
 
 
 
-Question: Fatima keeps struggling on the word “Nest”, she is getting super frustrated and is saying things like “I do not want to read” and “This book is dumb”, what should you do?
+15: Fatima keeps struggling on the word “Nest”, she is getting super frustrated and is saying things like “I do not want to read” and “This book is dumb”, what should you do?
 A: Acknowledge Fatima’s signs of frustrations and get her to understand her own emotions. Help her to take a deep breath and return to her executive state. Use prompting questions to help her understand what she knows and how to use the pictures as cues. Help her work to stretch the word and focus on the short E sound.
 Comment: This is the best choice. You acknowledge that Fatima is frustrated and you helped her return to a mental state in which she can learn. You gave her the support she needed to figure out the word she was stuck on and continue the story with more confidence in herself. 
 10
@@ -202,7 +216,7 @@ Comment: This is not a good choice. You acknowledged that she was frustrated, ho
 
 
 
-Question: What is the best activity to wrap up your guided reading group?
+16: What is the best activity to wrap up your guided reading group?
 A: Have a student gather the books and tell the students all they did an amazing job today in their reading group and guide them to successfully transition to their next activity. 
 Comment: This is the worst choice because it gives them no wrap up or self assessment after their reading, there is no conclusion or ending to your small guided reading lesson. 
 0
@@ -216,7 +230,7 @@ Comment: This is the best choice because it provides the students with an opport
 
 
 
-Question: You noticed that Gia and Shreya are struggling with their sight words and identifying different letters. What do you do as their teacher, outside of the reading group, to help them better understand the sight words and letter recognition?
+17: You noticed that Gia and Shreya are struggling with their sight words and identifying different letters. What do you do as their teacher, outside of the reading group, to help them better understand the sight words and letter recognition?
 A: Work with the class as a large group and review the sight words covered and other additional concepts that Gia and Shreya were struggling with. This allows the students to continue building their skills without being singled out.
 Comment: This is an okay answer because reviewing in a large group still gets the students who need the review more practice but it does not get the students one-on-one instruction, to get them the help them understand and walk through the sight words and letter differentiation.  
 5
@@ -226,28 +240,6 @@ Comment: This is the worst answer because ignoring the issue could cause these s
 C: Plan to work with Sherya, Gia and anyone else in the class that is struggling in an additional small group at a later time. You can create an additional guided reading lesson that goes over the sight words and work on the letters differentiation with each of the students to give them some extra practice and smaller group work time to better understand these topics.
 Comment:  This is the best answer because you are giving the students individual support during the next small group time without singling them out or removing them from large group activities.They can ask questions and get that one on one time with you. 
 10
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -5,6 +5,9 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 
+/// <summary>
+/// Converts the text documents into instances of Bio, Question and Option
+/// </summary>
 public class TextDocConverter : MonoBehaviour
 {
     GameManager gameManager;
@@ -29,8 +32,7 @@ public class TextDocConverter : MonoBehaviour
         string line;
         string kidName = "";
         Bio currentBio = null;
-
-
+        
         StreamReader biosStreamReader = File.OpenText(Application.streamingAssetsPath + "/Bios.txt");
 
         do
@@ -70,7 +72,7 @@ public class TextDocConverter : MonoBehaviour
                         lastLineSaidName = true;
 
                         currentBio = new Bio();
-                        kidName = ExtractStringAfterChar(line, ':');
+                        kidName = StringManipulator.ExtractStringAfterChar(line, ':');
                     }
                 }
             }
@@ -81,11 +83,11 @@ public class TextDocConverter : MonoBehaviour
 
 
         // =======================================
-        // ============== SCENARIOS ==============
+        // ============== SCENARIOS (OBSOLETE) ==============
         // =======================================
-        
+        #region
         StreamReader scenariosStreamReader = File.OpenText(Application.streamingAssetsPath + "/Scenarios.txt");
-        Scenario currentScenario = null;
+        Question currentQuestion = null;
         Option currentOption = null;
         bool lastLineWasOption = false;
         bool lastLineWasPoints = false;
@@ -103,11 +105,11 @@ public class TextDocConverter : MonoBehaviour
                     // Take not of some stuff and set a new currentScenario that we can add things to
                     lastLineWasPoints = false;
                     currentOption = null;
-                    currentScenario = new Scenario();
+                    currentQuestion = new Question();
 
                     // Add this to the scenarios dictionary and add the description to that scenario
-                    gameManager.scenariosDict.Add(ExtractStringBeforeChar(line, ':'), currentScenario);
-                    currentScenario.question = ExtractStringAfterChar(line, ':');
+                    gameManager.scenariosDict.Add(StringManipulator.ExtractStringBeforeChar(line, ':'), currentQuestion);
+                    currentQuestion.text = StringManipulator.ExtractStringAfterChar(line, ':');
                 }
                 // If it's the points for an option...
                 else if (lastLineWasOption)
@@ -126,7 +128,7 @@ public class TextDocConverter : MonoBehaviour
                         // Get the points for this line
                         if (line.Contains(":"))
                         {
-                            pointsString = ExtractStringAfterChar(line, ':');
+                            pointsString = StringManipulator.ExtractStringAfterChar(line, ':');
                         }
                         else
                         {
@@ -139,12 +141,12 @@ public class TextDocConverter : MonoBehaviour
                     }
 
                     // Now that the option we're working with has some points assigned, add it to the options list for the current scenario
-                    currentScenario.AddOption(currentOption);
+                    currentQuestion.AddOption(currentOption);
                 }
                 // If this line is a comment, add this comment to the option
                 else if (lastLineWasPoints && line[0] == '"')
                 {
-                    currentOption.comment = ExtractStringAfterChar(line, '"');
+                    currentOption.comment = StringManipulator.ExtractStringAfterChar(line, '"');
                 }
                 // If it's an option line...
                 else if (line[1] == ')')
@@ -153,25 +155,25 @@ public class TextDocConverter : MonoBehaviour
                     lastLineWasPoints = false;
 
                     // Add this option with its text and letter
-                    currentOption = new Option(ExtractStringAfterChar(line, ')'));
+                    currentOption = new Option(StringManipulator.ExtractStringAfterChar(line, ')'));
                     currentOption.letter = line[0];
                 }
             }
         } while (line != null);
 
         scenariosStreamReader.Close();
+        #endregion
 
 
-
-        // =======================================
-        // ============== SCENARIOS ==============
-        // =======================================
+        // ==============================================
+        // ============== SCENARIOS LINEAR ==============
+        // ==============================================
 
         StreamReader scenariosLinearStreamReader = File.OpenText(Application.streamingAssetsPath + "/ScenariosLinear.txt");
-        currentScenario = null;
+        currentQuestion = null;
         currentOption = null;
         int currentGroup = 0;
-        string currentQuestion = "";
+        string currentQuestionText = "";
         bool lastLineWasQuestion = false;
         
         do
@@ -182,37 +184,37 @@ public class TextDocConverter : MonoBehaviour
             if (line != null && line.Length > 0 && line[0] != '@')
             {
                 // If it's a group line...
-                if (line.Contains(":") && ExtractStringBeforeChar(line, ':').ToLower() == "group")
+                if (line.Contains(":") && StringManipulator.ExtractStringBeforeChar(line, ':').ToLower() == "scenario")
                 {
                     lastLineWasQuestion = false;
 
                     // Set the currentGroup we're in
-                    string groupString = ExtractStringAfterChar(line, ':');
+                    string groupString = StringManipulator.ExtractStringAfterChar(line, ':');
                     currentGroup = int.Parse(groupString);
                 }
                 // If it's a question...
-                else if (line.Contains(":") && ExtractStringBeforeChar(line, ':').ToLower() == "question")
+                else if (line.Contains(":") && Char.IsNumber(line[0]))
                 {
                     lastLineWasQuestion = true;
-                    currentQuestion = line;
+                    currentQuestionText = StringManipulator.ExtractStringAfterChar(line, ':');
+                    string keyString = currentGroup.ToString() + "-" + StringManipulator.ExtractStringBeforeChar(line, ':');
 
-                    currentScenario = new Scenario();
-                    gameManager.scenariosLinearList.Add(currentScenario);
-                    currentScenario.question = currentQuestion;
-                    currentScenario.group = currentGroup;
+                    currentQuestion = new Question();
+                    gameManager.scenariosLinearDict.Add(keyString, currentQuestion);
+                    currentQuestion.text = currentQuestionText;
                 }
                 // If it's an option line...
                 else if (line.Length > 1 && line[1] == ':' && Char.IsLetter(line[0]))
                 {
                     // Add this option with its text and letter
-                    currentOption = new Option(ExtractStringAfterChar(line, ':'));
+                    currentOption = new Option(StringManipulator.ExtractStringAfterChar(line, ':'));
                     currentOption.letter = line[0];
-                    currentScenario.AddOption(currentOption);
+                    currentQuestion.AddOption(currentOption);
                 }
                 // If this line is a comment, add this comment to the option
-                else if (line.Contains(":") && ExtractStringBeforeChar(line, ':').ToLower() == "comment")
+                else if (line.Contains(":") && StringManipulator.ExtractStringBeforeChar(line, ':').ToLower() == "comment")
                 {
-                    currentOption.comment = ExtractStringAfterChar(line, '"');
+                    currentOption.comment = StringManipulator.ExtractStringAfterChar(line, ':');
                 }
                 else if (Char.IsNumber(line[0]))
                 {
@@ -220,55 +222,12 @@ public class TextDocConverter : MonoBehaviour
                 }
                 else if (lastLineWasQuestion)
                 {
-                    currentQuestion += line;
-                    currentScenario.question = currentQuestion;
+                    currentQuestionText += "/n" + line;
+                    currentQuestion.text = currentQuestionText;
                 }
             }
         } while (line != null);
 
         scenariosLinearStreamReader.Close();
-    }
-
-
-
-
-    /// <summary>
-    /// A handy method that returns the text in a string after the input character
-    /// </summary>
-    /// <param name="inputString"></param>
-    /// <param name="inputChar"></param>
-    /// <returns></returns>
-    private string ExtractStringAfterChar(string inputString, char inputChar)
-    {
-        int placeToRemoveAt = inputString.IndexOf(inputChar);
-        if (inputString[placeToRemoveAt + 1] == ' ') placeToRemoveAt++;
-
-        return inputString.Remove(0, placeToRemoveAt + 1);
-    }
-
-    /// <summary>
-    /// A handy method that returns the text in a string before the input character
-    /// </summary>
-    /// <param name="inputString"></param>
-    /// <param name="inputChar"></param>
-    /// <returns></returns>
-    private string ExtractStringBeforeChar(string inputString, char inputChar)
-    {
-        int placeToRemoveAt = inputString.IndexOf(inputChar);
-        if (inputString[placeToRemoveAt + 1] == ' ') placeToRemoveAt++;
-
-        return inputString.Remove(placeToRemoveAt - 1);
-    }
-
-    /// <summary>
-    /// A handy method that removes the space at the beginning of a string if it's there
-    /// </summary>
-    /// <param name="inputString"></param>
-    /// <returns></returns>
-    private string RemoveFirstSpaceIfThere(string inputString)
-    {
-        string outputString = inputString;
-        if (outputString[0] == ' ') outputString = outputString.Remove(0, 1);
-        return outputString;
     }
 }

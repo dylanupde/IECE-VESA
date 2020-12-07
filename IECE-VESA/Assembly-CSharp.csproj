@@ -62,7 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AudioManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
@@ -78,14 +77,21 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\_Scripts\AnimationModifier.cs" />
+    <Compile Include="Assets\_Scripts\AudioManager.cs" />
     <Compile Include="Assets\_Scripts\CameraPosition.cs" />
     <Compile Include="Assets\_Scripts\Child.cs" />
     <Compile Include="Assets\_Scripts\ClickableObject.cs" />
     <Compile Include="Assets\_Scripts\CloseButton.cs" />
-    <Compile Include="Assets\_Scripts\ContinueButton.cs" />
+    <Compile Include="Assets\_Scripts\ContinueButtonLinear.cs" />
     <Compile Include="Assets\_Scripts\GameManager.cs" />
+    <Compile Include="Assets\_Scripts\ImageAssigner.cs" />
     <Compile Include="Assets\_Scripts\MainMenu.cs" />
-    <Compile Include="Assets\_Scripts\OptionButton.cs" />
+    <Compile Include="Assets\_Scripts\Obsolete\ContinueButton.cs" />
+    <Compile Include="Assets\_Scripts\Obsolete\OptionButton.cs" />
+    <Compile Include="Assets\_Scripts\OptionButtonLinear.cs" />
+    <Compile Include="Assets\_Scripts\Sound.cs" />
+    <Compile Include="Assets\_Scripts\SpecialEventInvoker.cs" />
+    <Compile Include="Assets\_Scripts\StringManipulator.cs" />
     <Compile Include="Assets\_Scripts\TextDocConverter.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\StreamingAssets\Bios.txt" />
